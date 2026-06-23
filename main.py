@@ -1,7 +1,7 @@
 import discord
 import os
 from dotenv import load_dotenv
-from src.app.commands import client
+from src.handler.commands import client
 
 load_dotenv()
 
