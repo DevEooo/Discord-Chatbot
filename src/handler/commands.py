@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from discord import app_commands
 from src.handler.mention import handle_mention
 from src.service.gemini_service import get_response
+from src.components.chat import chat_response
 
 load_dotenv()
 
@@ -24,19 +25,16 @@ class clientsCommand(discord.Client):
         
     async def on_message(self, message: discord.Message):
         await handle_mention(self, message)
+        
+    async def chat_response(self, message: discord.Message):
+        await self.chat_response(self, message)
     
 client = clientsCommand()
 
 # First chatbot command, /chat. use this comm to ask or chat with AI.
-@client.tree.command(name="chat", description="Chat or ask me anything!")
-@app_commands.describe(prompt="Your prompt goes here")
+# @client.tree.command(name="report_bug", description="If there's a bug, please submit a report form here")
+# @app_commands.describe(prompt="Your prompt goes here")
+# async def report_bug(interaction: discord.Interaction, bug_report: str):
+#     """Handle bug reports from users"""
+#     await interaction.response.send_message(f"Thank you for reporting: {bug_report}")
 
-async def chat(interaction: discord.Interaction, prompt: str):
-    await interaction.response.defer()
-    chunks = await get_response(prompt)
-
-    await interaction.followup.send(chunks[0])
-    
-    for chunk in chunks[1:]:
-        await interaction.channel.send(chunk)
-    

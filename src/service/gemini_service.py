@@ -1,11 +1,10 @@
 import os
 from dotenv import load_dotenv
 from google import genai
+from src.utils.chunks import split_into_chunks
 
 load_dotenv()
-llmCreds = os.getenv('llm_credential')
-
-ai_client = genai.Client(api_key=llmCreds)
+ai_client = genai.Client(api_key=os.getenv('llm_credential'))
 
 async def get_response(prompt: str) -> list[str]:
     try:
@@ -14,12 +13,7 @@ async def get_response(prompt: str) -> list[str]:
             contents=prompt,
         )
         
-        answer = response.text
-        
-        # Chunking the response is necessary here, since discord has a response limit to 2.000 chars. if the limit reached, HTTP 400 Bad Request (Error Code: 50035) error would happen.
-        chunk_size = 1900
-        
-        return [answer[i:i+chunk_size] for i in range(0, len(answer), chunk_size)]
+        return split_into_chunks(response.text)
 
     except Exception as e:
         print(f"An error occurred: {e}")
