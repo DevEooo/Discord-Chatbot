@@ -1,6 +1,7 @@
 import discord
 from google import genai
 from src.service.gemini_service import get_response
+from src.utils.chunks import split_into_chunks
 
 async def handle_mention(bot: discord.Client, message: discord.Message):
     if message.author == bot.user:
@@ -73,5 +74,16 @@ async def handle_mention(bot: discord.Client, message: discord.Message):
                     else:
                         print(f"[INFO]: Ignored unrelated attachment type {filename}")
                                 
-                        
-                        
+        if prompt:
+            contents_payload.append(prompt)
+        elif not prompt and message.attachments:
+            print("There's an error between prompt or attachments.")
+        
+        print(f"[INFO]: Sending payloads containing {len(contents_payload)} components directly to LLM...")
+        
+        chunks = await get_response(contents_payload)
+        
+        if chunks:
+            await message.reply(chunks[0])
+            for chunk in chunks[1:]:
+                await message.channel.send(chunk)
