@@ -42,4 +42,36 @@ async def handle_mention(bot: discord.Client, message: discord.Message):
                     
                 contents_payload.append(f"Context: You previously answered: {parent_msg.content} ")
                 
-           
+            # To enable AI accessing provided files & images by user
+            if message.attachments:
+                for attachment in message.attachments:
+                    filename = attachment.filename.lower() # Converting filename into lowercase
+                    is_Img = False # Default state
+                    
+                    if attachment.content_type and attachment.content_type.startswith("image/"): 
+                        is_Img = True
+                    elif filename.endswith(('.png', '.jpg', '.jpeg', '.webp', '.gif')): # In case if attached file not started with "image/"
+                        is_Img = True
+                        
+                    if is_Img:
+                        mime = attachment.content_type or f"image/{filename.split('.')[-1]}"
+                        if mime == "image/jpg":
+                            mime = "image/jpeg"
+                            
+                        print(f"[DEBUG]: Image attachment is found with this file: '{filename}' using mime: {mime}")
+                        
+                        try:
+                            img_bytes = await attachment.read() # Defining the variable that will convert it into bytes by reading the attachment
+                            img_part = genai.types.Part.from_bytes( 
+                                data = img_bytes,
+                                mime_type = mime,
+                            )
+                            contents_payload.append(img_part) 
+                            print(f"[SUCCESS]: Successfully packed image into payload. Current array size: {len(contents_payload)}")
+                        except Exception as e:
+                            print(f"[ERROR]: Failed converting asset: {e}")
+                    else:
+                        print(f"[INFO]: Ignored unrelated attachment type {filename}")
+                                
+                        
+                        
