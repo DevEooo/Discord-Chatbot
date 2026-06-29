@@ -1,8 +1,7 @@
 import os, discord
 from discord import app_commands
 
-class ReportBugModal(discord.ui.modal, title="Submit Feedback / Bug Report"):
-    
+class ReportBugModal(discord.ui.Modal, title="Submit Feedback / Bug Report"):
     modal_title = discord.ui.TextInput(
         label="Report Title",
         placeholder="e.g. Chatbot isn't responding",
@@ -13,7 +12,7 @@ class ReportBugModal(discord.ui.modal, title="Submit Feedback / Bug Report"):
     modal_desc = discord.ui.TextInput(
         label="Description",
         style=discord.TextStyle.paragraph,
-        description="Please provide the description",
+        placeholder="Describe what hapenned...",
         required=True,
         max_length=1000
     )

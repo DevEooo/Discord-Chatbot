@@ -1,7 +1,7 @@
 import discord, os
 from discord import app_commands
 from src.handler.mention import handle_mention
-from handler.report_bug import ReportBugModal
+from src.handler.report_bug import ReportBugModal
 
 serverCreds = os.getenv('server_credential')  # This variable contains my server ID and i store it in .env
 if not serverCreds:
@@ -32,4 +32,5 @@ class clientsCommand(discord.Client):
             return
         await handle_mention(self, message)
         
+client = clientsCommand()
     
