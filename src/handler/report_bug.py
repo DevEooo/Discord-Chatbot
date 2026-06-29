@@ -1,7 +1,7 @@
 import os, discord
 from discord import app_commands
 
-class ReportBugModal(discord.ui.Modal, title="Submit Feedback / Bug Report"):
+class ReportBugModal(discord.ui.Modal, title="Report a critical bug"):
     modal_title = discord.ui.TextInput(
         label="Report Title",
         placeholder="e.g. Chatbot isn't responding",
@@ -33,15 +33,15 @@ class ReportBugModal(discord.ui.Modal, title="Submit Feedback / Bug Report"):
             return
 
         embed = discord.Embed(
-            title=f"[INFO]: New report has been retrieved with this issue: {self.modal_title.value}",
+            title=f'New report has been retrieved with this issue:\n"{self.modal_title.value}"',
             timestamp=interaction.created_at,
         )
         
-        embed.add_field(name="Submitter", value=f"{interaction.user.mention} ({interaction.user.name})", inline=True)
-        embed.add_field(name="Channel Source", value=interaction.channel.mention, inline=True)
-        embed.add_field(name="Description", value=self.modal_desc.value, inline=False)
+        embed.add_field(name="Assigner: ", value=f"{interaction.user.mention} ({interaction.user.name})", inline=True)
+        embed.add_field(name="On Channel: ", value=interaction.channel.mention, inline=True)
+        embed.add_field(name="Description: ", value=self.modal_desc.value, inline=False)
         
-        embed.set_footer(text=f"UserID: {interaction.user.id}")
+        embed.set_footer(text="Note: If the bug seems critical, please take an action ASAP!")
         
         await channel.send(embed=embed)
         
@@ -53,7 +53,7 @@ class ReportBugModal(discord.ui.Modal, title="Submit Feedback / Bug Report"):
     async def on_error(self, interaction: discord.Interaction, e: Exception):
         print(f"[ERROR]: Failed to submit the form {e}")
         await interaction.response.send_message(
-            "There's an error while submitting your form.",
+            "There's an error while processing your submit form.",
             ephemeral=True
         )
         
