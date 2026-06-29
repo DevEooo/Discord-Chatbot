@@ -1,14 +1,12 @@
-import discord 
-import os
-from dotenv import load_dotenv
+import discord, os
 from discord import app_commands
 from src.handler.mention import handle_mention
-from src.service.gemini_service import get_response
-from src.components.chat import chat_response
-
-load_dotenv()
+from src.handler.bug_report import BugReportModal
 
 serverCreds = os.getenv('server_credential')  # This variable contains my server ID and i store it in .env
+if not serverCreds:
+    raise ValueError("[ERROR]: 'server_credential' is missing in .env")
+
 myGuild = discord.Object(id=int(serverCreds))
 
 class clientsCommand(discord.Client):
@@ -30,11 +28,3 @@ class clientsCommand(discord.Client):
         await self.chat_response(self, message)
     
 client = clientsCommand()
-
-# First chatbot command, /chat. use this comm to ask or chat with AI.
-# @client.tree.command(name="report_bug", description="If there's a bug, please submit a report form here")
-# @app_commands.describe(prompt="Your prompt goes here")
-# async def report_bug(interaction: discord.Interaction, bug_report: str):
-#     """Handle bug reports from users"""
-#     await interaction.response.send_message(f"Thank you for reporting: {bug_report}")
-
