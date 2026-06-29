@@ -1,7 +1,7 @@
 import os, discord
 from discord import app_commands
 
-class BugReportModal(discord.ui.modal, title="Submit Feedback / Bug Report"):
+class ReportBugModal(discord.ui.modal, title="Submit Feedback / Bug Report"):
     
     modal_title = discord.ui.TextInput(
         label="Report Title",
@@ -47,7 +47,7 @@ class BugReportModal(discord.ui.modal, title="Submit Feedback / Bug Report"):
         await channel.send(embed=embed)
         
         await interaction.response.send_message(
-            "Thanks! We'll take care your report perfectly.",
+            "Thanks! We'll take care your report carefully.",
             ephemeral=True
         )
         

@@ -1,17 +1,17 @@
-import discord
 import os
 from dotenv import load_dotenv
-from src.handler.commands import client
 
 load_dotenv()
+
+from src.handler.commands import client
 
 secret = os.getenv('discord_token')
 llm = os.getenv('llm_api')
 
 if __name__ == "__main__":
     if secret:
-        print("Logged in..")
+        print("[INFO]: Logged in..")
         client.run(secret)
     else:
-        print("Error")
+        print("[ERROR]: An error occurred")
         
