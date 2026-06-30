@@ -17,10 +17,10 @@ class ReportBugModal(discord.ui.Modal, title="Report a critical bug"):
         max_length=1000
     )
     
-    # attachment = discord.ui.File(
-    #     label="Additional Image"
-    # )
-    
+    def __init__(self, attachment: discord.Attachment = None):
+        super().__init__(title="Submit Bug Report")
+        self.attachment = attachment
+        
     async def on_submit(self, interaction: discord.Interaction):
         id_channel = int(os.getenv("id_channel", 0))
         channel = interaction.client.get_channel(id_channel)
@@ -40,10 +40,19 @@ class ReportBugModal(discord.ui.Modal, title="Report a critical bug"):
         embed.add_field(name="Assigner: ", value=f"{interaction.user.mention} ({interaction.user.name})", inline=True)
         embed.add_field(name="On Channel: ", value=interaction.channel.mention, inline=True)
         embed.add_field(name="Description: ", value=self.modal_desc.value, inline=False)
-        
         embed.set_footer(text="Note: If the bug seems critical, please take an action ASAP!")
         
-        await channel.send(embed=embed)
+        if self.attachment:
+            if self.attachment.content_type and self.attachment.content_type.startswith("/image"):
+                embed.set_image(url=self.attachment.url)
+            else:
+                embed.add_field(name="Attached Log", value=f"File: [{self.attachment.filename}]({self.attachment.url})", inline=False)
+        
+            file_payload = await self.attachment.to_file()
+        
+            await channel.send(embed=embed, file=file_payload)
+        else:
+            await channel.send(embed=embed)
         
         await interaction.response.send_message(
             "Thanks! We'll take care your report carefully.",

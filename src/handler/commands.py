@@ -10,8 +10,8 @@ if not serverCreds:
 myServer = discord.Object(id=int(serverCreds))
 
 @app_commands.command(name="bug_report", description="Report a bug report directly to devs.")
-async def report_bug_command(interaction: discord.Interaction):
-    await interaction.response.send_modal(ReportBugModal())
+async def report_bug_command(interaction: discord.Interaction, attachment: discord.Attachment = None):
+    await interaction.response.send_modal(ReportBugModal(attachment=attachment))
 
 class clientsCommand(discord.Client):
     def __init__(self):
@@ -23,8 +23,9 @@ class clientsCommand(discord.Client):
         
     async def setup_hook(self):
         self.tree.add_command(report_bug_command)
-        self.tree.copy_global_to(guild=myServer)
+        await self.tree.sync()
         
+        self.tree.copy_global_to(guild=myServer)
         await self.tree.sync(guild=myServer)
         
     async def on_message(self, message: discord.Message):
