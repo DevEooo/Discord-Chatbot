@@ -10,8 +10,14 @@ if not serverCreds:
 myServer = discord.Object(id=int(serverCreds))
 
 @app_commands.command(name="bug_report", description="Report a bug report directly to devs.")
+@app_commands.checks.cooldown(1, 60.0, key=lambda i: i.user.id)
 async def report_bug_command(interaction: discord.Interaction, attachment: discord.Attachment = None):
     await interaction.response.send_modal(ReportBugModal(attachment=attachment))
+
+@report_bug_command.error
+async def report_bug_error(interaction: discord.Interaction, e: app_commands.AppCommandError):
+    if isinstance(e, app_commands.CommandOnCooldown):
+        await interaction.response.send_message(f"On cooldown. Wait {e.retry_after:.1f}s before trying again.", ephemeral=True)
 
 class clientsCommand(discord.Client):
     def __init__(self):
