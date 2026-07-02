@@ -1,4 +1,4 @@
-import discord
+import discord, time
 from google import genai
 from src.service.gemini_service import get_response
 from src.utils.chunks import split_into_chunks
