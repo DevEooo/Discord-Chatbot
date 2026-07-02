@@ -2,7 +2,7 @@
 __pycache__/*
 /.vscode
 /src/service/prompts/*
-/asset
+/asset/image
 /src/components/__pycache__
 /src/handler/__pycache__
 /src/service/__pycache__
