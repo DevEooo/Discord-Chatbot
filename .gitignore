@@ -1,8 +1,8 @@
 .env
+prompt.txt
 __pycache__/*
-/.vscode
-/src/service/prompts/
-/asset/image/
+.vscode/
+asset/image/
 /src/components/__pycache__/
 /src/handler/__pycache__/
 /src/service/__pycache__/

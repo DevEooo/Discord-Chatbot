@@ -2,11 +2,12 @@ import os
 from dotenv import load_dotenv
 from google import genai 
 from src.utils.chunks import split_into_chunks
+from pathlib import Path
 
 load_dotenv()
 
-base_directory = os.path.dirname(os.path.abspath(__file__))
-prompt_path = os.path.join(base_directory, "prompts", "prompt.txt")
+base_dir = Path(__file__).resolve().parent
+prompt_path = base_dir.parent.parent / "prompt.txt"
 
 try:
     with open(prompt_path, "r", encoding="utf-8") as file:
