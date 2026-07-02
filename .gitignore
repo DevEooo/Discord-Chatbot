@@ -1,5 +1,10 @@
 .env
 __pycache__/*
-.vscode/
-.service/prompts/*
-.asset/*
+/.vscode
+/src/service/prompts/*
+/asset
+/src/components/__pycache__
+/src/handler/__pycache__
+/src/service/__pycache__
+/src/utils/__pycache__
+
