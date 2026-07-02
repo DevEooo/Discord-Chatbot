@@ -9,8 +9,8 @@ llm = os.getenv('llm_api')
 
 if __name__ == "__main__":
     if secret:
-        print("[INFO]: Logged in..")
         client.run(secret)
-    else:
-        print("[ERROR]: An error occurred")
+    if not secret or llm:
+        raise SystemExit("[ERROR]: Discord / LLM token is missing.")
+    
         

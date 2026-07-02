@@ -19,7 +19,7 @@ async def handle_mention(bot: discord.Client, message: discord.Message):
             parent_msg = None
     
     if bot.user in message.mentions or is_reply2bot:
-        prompt = message.content.replace(f'<@{bot.user.id}', '').strip()
+        prompt = message.content.replace(f'<@{bot.user.id}>', '').strip()
         
         if not prompt and not message.attachments: 
             await message.channel.send("Hey there! Drop me a prompt after tagging me if you wanna having a conversation with me or ask me a question.")
