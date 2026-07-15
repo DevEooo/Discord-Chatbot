@@ -43,13 +43,12 @@ class ReportBugModal(discord.ui.Modal, title="Report a critical bug"):
         embed.set_footer(text="Note: If the bug seems critical, please take an action ASAP!")
         
         if self.attachment:
-            if self.attachment.content_type and self.attachment.content_type.startswith("/image"):
+            if self.attachment.content_type and self.attachment.content_type.startswith("image/"):
                 embed.set_image(url=self.attachment.url)
             else:
                 embed.add_field(name="Attached Log", value=f"File: [{self.attachment.filename}]({self.attachment.url})", inline=False)
-        
+
             file_payload = await self.attachment.to_file()
-        
             await channel.send(embed=embed, file=file_payload)
         else:
             await channel.send(embed=embed)
