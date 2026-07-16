@@ -3,11 +3,11 @@
 prompt.txt
 __pycache__/*
 .vscode/
-asset/image/
 /src/components/__pycache__/
 /src/handler/__pycache__/
 /src/service/__pycache__/
 /src/utils/__pycache__/
+requirement.txt
 TODO.md
 COMMAND.md
 ROADMAP.md
