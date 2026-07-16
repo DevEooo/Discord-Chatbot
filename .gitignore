@@ -8,8 +8,6 @@ asset/image/
 /src/handler/__pycache__/
 /src/service/__pycache__/
 /src/utils/__pycache__/
-/asset/*
 TODO.md
 COMMAND.md
 ROADMAP.md
-requirement.txt
