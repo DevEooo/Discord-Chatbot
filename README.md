@@ -1,6 +1,8 @@
 <div align="center">
-    <img alt="Logo" src="">
+    <img alt="App preview" src="asset/image/App Preview.png">
 </div>
+
+<br>
 
 <p align="center">
     <a href="https://www.python.org/downloads/release/python-3142/"><img src="https://img.shields.io/badge/python-v3.14.2-blue?logo=python"></a>
