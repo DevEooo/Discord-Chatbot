@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="250" height="250" alt="App preview" src="asset/image/App Preview.png">
+    <img width="250" height="250" alt="App preview" src="asset/image/Preview.png">
 </div>
 
 <br>
@@ -9,7 +9,6 @@
     <a href=""><img src="https://img.shields.io/badge/Discord.py-v2.3+-5865F2?logo=discord&logoColor=ffffff"></a>
     <a href=""><img src="https://img.shields.io/badge/license-MIT-green"></a>
     <a href="https://github.com/DevEooo/Discord-Chatbot/commits/main/"><img src="https://img.shields.io/github/commit-activity/m/DevEooo/Discord-Chatbot?style=flat"></a>
-    
 </p>
 
 --- 
